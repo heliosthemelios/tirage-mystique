@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta name="description" content="Tirage intuitif et gratuit du Tarot de Marseille. Une approche sensible et directe pour recevoir un message personnalisé.">
+  <meta name="keywords" content="tirage tarot gratuit, tarot intuitif, guidance amoureuse, message des cartes, tirage mystique, voyance gratuite, formulaire">
+  <meta name="author" content="Tirage Mystique par Éric">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tirage Mystique</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #3a2e2e, #1a1414);
+      font-family: 'Garamond', 'Georgia', serif;
+      color: #fef7e2;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+      
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, p, form, img, #tirageInstantane {
+      animation: fadeIn 1.5s ease-in-out both;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #f9d36d;
+      text-shadow: 1px 1px 4px #000;
+      letter-spacing: 1px;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      text-align: center;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(6px);
+      padding: 2rem;
+      border: 2px solid #f9d36d;
+      border-radius: 1.5rem;
+      box-shadow: 0 0 20px rgba(255, 223, 100, 0.2);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    label {
+      display: block;
+      margin-top: 1.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #f9d36d;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    input, textarea {
+      background: #2d2d2d;
+      color: #fef7e2;
+      border: 1px solid #555;
+    }
+
+    input[type="file"] {
+      background: transparent;
+      padding-left: 0;
+      color: #fef7e2;
+    }
+
+    button {
+      background: #d4a752;
+      color: #1a1414;
+      font-weight: bold;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #f9d36d;
+      transform: scale(1.03);
+    }
+
+    img {
+      width: 220px;
+      margin-bottom: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 12px rgba(255, 223, 100, 0.4);
+    }
+
+    #confirmationMessage, #resultatCarte {
+      margin-top: 2rem;
+      font-style: italic;
+      color: #fef7e2;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 1rem;
+      border-radius: 1rem;
+      border-left: 4px solid #f9d36d;
+      max-width: 500px;
+      text-align: center;
+    }
+
+    #tirageInstantane {
+      margin: 2rem auto 0 auto;
+      text-align: center;
+    }
+
+    #tirageInstantane button {
+      width: auto;
+      padding: 0.6rem 1rem;
+      background: #a07834;
+    }
+
+    #particles-js {
+      position: fixed;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fond animé -->
+  <div id="particles-js"></div>
+
+  <img src="laforce.jpg" alt="Tirage de cartes mystique">
+
+  <h1>Tirage Mystique</h1>
+  <p>Pose une question ou laisse simplement ton prénom. Je tirerai les cartes et t’enverrai un message guidé par l’intuition.</p>
+
+  <form name="tirage" method="POST" netlify>
+    <input type="text" name="prenom" placeholder="Ton prénom ou pseudo" required>
+    <p><strong>🧘 Décris-toi en quelques mots :</strong></p>
+    <textarea name="description" placeholder="Décris-toi en quelques mots : ton apparence, ton énergie, ton état d’esprit actuel..." rows="4" required></textarea>
+    <input type="text" name="email" placeholder="Ton email" required>
+    <textarea name="question" placeholder="Une question ? Une intention ? Écris ce qui te vient..." rows="5"></textarea>
+    <fieldset style="margin-top: 1.5rem; border: none;">
+      <legend style="color: #f9d36d; font-weight: bold;">🔮 Choisis ton type de tirage (obligatoire) :</legend>
+      <label style="margin-top: 0.5rem;">
+        <input type="radio" name="type_tirage" value="boule_de_cristal" required>
+        Boule de cristal
+      </label>
+      <label style="margin-top: 0.5rem;">
+        <input type="radio" name="type_tirage" value="tarot_de_marseille" required>
+        Tarot de Marseille
+      </label>
+    </fieldset>
+    
+    <button type="submit">Envoyer mon intention</button>
+  </form>
+
+  <p id="confirmationMessage" style="display: none;">Merci, ton tirage est en cours. Je reviendrai vers toi bientôt ! ✨</p>
+
+  <!-- Tirage immédiat -->
+  <div id="tirageInstantane">
+    <button onclick="tirerCarteInstant()">✨ Tirer une carte maintenant</button>
+    <div id="resultatCarte"></div>
+  </div>
+
+  <script>
+    // Confirmation après soumission
+    document.querySelector('form').addEventListener('submit', function() {
+      document.querySelector('form').style.display = 'none';
+      document.getElementById('confirmationMessage').style.display = 'block';
+    });
+
+    // Tirage aléatoire immédiat
+    function tirerCarteInstant() {
+      const cartes = [
+        "🌞 Le Soleil – Joie et illumination",
+        "🌙 La Lune – Intuition, mystère",
+        "⚡ La Tour – Révélation brutale",
+        "❤️ L’Amoureux – Décision importante",
+        "🛡 Le Chariot – Volonté, victoire",
+        "👁 Le Pendu – Nouvelle perspective",
+        "🌟 L’Étoile – Espoir et foi",
+        "💀 La Mort – Transformation profonde"
+      ];
+      const tirage = cartes[Math.floor(Math.random() * cartes.length)];
+      document.getElementById("resultatCarte").textContent = tirage;
+    }
+  </script>
+
+  <!-- Particles.js -->
+  <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+        "color": { "value": "#f9d36d" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.2 },
+        "size": { "value": 3 },
+        "move": { "enable": true, "speed": 0.4 }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": false }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

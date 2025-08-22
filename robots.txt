@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://tiragetarot.netlify.app/sitemap.xml
