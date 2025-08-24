@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Tirage Mystique</title>
+  <style>
+    body {
+      margin: 0;
+      background: radial-gradient(circle at top, #3a2e2e, #1a1414);
+      font-family: 'Garamond', 'Georgia', serif;
+      color: #fef7e2;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, p, form {
+      animation: fadeIn 1.5s ease-in-out both;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 0.5rem;
+      color: #f9d36d;
+      text-shadow: 1px 1px 4px #000;
+      letter-spacing: 1px;
+    }
+
+    p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      text-align: center;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    form {
+      background: rgba(255, 255, 255, 0.04);
+      backdrop-filter: blur(6px);
+      padding: 2rem;
+      border: 2px solid #f9d36d;
+      border-radius: 1.5rem;
+      box-shadow: 0 0 20px rgba(255, 223, 100, 0.2);
+      width: 100%;
+      max-width: 500px;
+    }
+
+    label {
+      display: block;
+      margin-top: 1.5rem;
+      font-weight: bold;
+      font-size: 1rem;
+      color: #f9d36d;
+    }
+
+    input, textarea, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 0.5rem;
+      border: none;
+      border-radius: 0.5rem;
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    input, textarea {
+      background: #2d2d2d;
+      color: #fef7e2;
+      border: 1px solid #555;
+    }
+
+    button {
+      background: #d4a752;
+      color: #1a1414;
+      font-weight: bold;
+      margin-top: 1.5rem;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #f9d36d;
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Me contacter</h1>
+  <p>Si tu as des questions, n'hésite pas à m'écrire. Je serai ravi de te lire et de te répondre.</p>
+
+  <form name="contact" method="POST" data-netlify="true">
+    <label for="name">Ton nom :</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="email">Ton email :</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="message">Ton message :</label>
+    <textarea id="message" name="message" rows="6" required></textarea>
+
+    <button type="submit">Envoyer le message</button>
+  </form>
+
+</body>
+</html>
